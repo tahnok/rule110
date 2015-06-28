@@ -1,14 +1,14 @@
 @starting_row = "100010011011111000100110111110010011011111"
 
-@rule110 = [0,1,1,1,0,1,1,0]
+@rule110 = [0,1,1,1,0,1,1,0] #stored backwards
 
-def apply_rule(a, b, c)
-  @rule110[a * 4 + b * 2 + c]
+def apply_rule(left, middle, right)
+  @rule110[left * 4 + middle * 2 + right]
 end
 
 def next_row(current_row)
   row = (1..(current_row.length - 2)).map do |cell|
-    apply_rule(current_row[cell - 1], current_row[cell], current_row[cell + 1])
+    apply_rule(*current_row[cell-1..cell+1])
   end
   [current_row[0]] + row + [current_row[-1]]
 end
